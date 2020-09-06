@@ -1,6 +1,6 @@
 # Verkkokauppa
 
-Sovellus on verkossa toimiva kauppapaikka, jossa henkilöt ja yritykset voivat myydä ja ostaa tavaraa. Sovellus tuo myyjät ja ostajat yhteen.
+Sovellus on verkossa toimiva kauppapaikka, jossa henkilöt ja yritykset voivat myydä ja ostaa tavaraa. Sovellus tuo myyjät ja ostajat yhteen. Samalla sähköpostilla voi luoda yhden ostaja-tilin sekä yhden myyjä-tilin. Tilit luodaan erikseen, eikä molempia ole pakko luoda.
 
 ## Käyttäjätyypit
 ### Ylläpitäjä
