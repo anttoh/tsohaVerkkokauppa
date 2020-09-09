@@ -1,15 +1,20 @@
 # Verkkokauppa
 
-Sovellus on verkossa toimiva kauppapaikka, jossa henkilöt ja yritykset voivat myydä ja ostaa tavaraa. Sovellus tuo myyjät ja ostajat yhteen. Samalla sähköpostilla voi luoda yhden ostaja-tilin sekä yhden myyjä-tilin. Tilit luodaan erikseen, eikä molempia ole pakko luoda.
+Sovellus on verkossa toimiva kauppapaikka, jossa henkilöt ja yritykset voivat myydä ja ostaa tavaraa.
 
 ## Käyttäjätyypit
 ### Ylläpitäjä
 - voi poistaa epäilyttäviä listauksia (myytäviä tuotteita)
 - voi poistaa epäityäviä myyjiä, jolloin kaikki myyjän tuotteet poistuvat myynnistä
 - voi lisätä uusia tuotekategorioita sovellukseen
-- voi merkitä myyjän luotettavaksi (esim. tunnettu yritys)
+- voi merkitä myyjän(käyttäjän) luotettavaksi (esim. tunnettu yritys)
+- voi estää käyttäjää toimimasta jommassakummassa tai molemmissa rooleissa (ostaja ja myyjä)
+- voi poistaa käyttäjän
 
-### Ostaja
+### Käyttäjä
+Käyttäjä voi toimia kahdessa roolissa, ostajana tai myyjänä, ja rooleja voi vaihtaa.
+
+#### Ostajana
 - voi ostaa tuotteita
 - voi arvioida ostamiaan tuotteitta
 - voi arvioida ostamiensa tuotteiden myyjää
@@ -21,7 +26,7 @@ Sovellus on verkossa toimiva kauppapaikka, jossa henkilöt ja yritykset voivat m
 - pystyy seuraamaan tilauksiaan (esim. tilaus käsittelyssä tai tilaus matkalla)
 - pystyy perumaan tilauksen, jos sitä ei ole vielä käsitelty.
 
-### Myyjä
+#### Myyjänä
 - voi listata tuotteita myyntiin
 - voi poistaa listaamiaan tuotteita myynnistä
 - voi muuttaa listattujen tuotteidensa hintaa, tuotekuvausta jne.
@@ -29,14 +34,11 @@ Sovellus on verkossa toimiva kauppapaikka, jossa henkilöt ja yritykset voivat m
 - voi tarkastella tuotteidensa myyntihistoriaa
 
 ## Tietokantataulut
-- myyjä
-- ostaja
+- käyttäjä
 - tuote (samalla tuotteella (esim Pokemon Sword) voi olla usea listaus, joissa on eri hinta ja myyjä)
 - listaus (tuote, myyjä ja hinta)
 - tilaus (ostaja ja listaus)
 - valmistaja (tuotteen valmistaja esim. Nintendo) 
-- kategoria (esim. kodinkoneet)
-- alakategoria (esim. pesukoneet)
-- ala-alakategoria (esim. päältä täytettävät pesukoneet)
+- kategoria (kategoriloilla voi olla yläkategoria, jonka avulla voidaan luoda kategoriahiearkia esim. null <- kodinkone <- pesukone <- päältätäytettävä pesukone. Jos yläkategoria on null, niin tuotteella ei ole yläkategoriaa)
 
 
