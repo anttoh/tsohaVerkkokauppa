@@ -4,13 +4,14 @@ from db import db
 
 
 def login(username, password):
-    sql = "SELECT password, id FROM users WHERE username=:username"
+    sql = "SELECT password, user_id FROM users WHERE username=:username"
     result = db.session.execute(sql, {"username": username})
     user = result.fetchone()
     if user == None:
         return False
     else:
         if check_password_hash(user[0], password):
+            session["user_id"] = user[1]
             session["username"] = username
             return True
         else:
@@ -18,6 +19,7 @@ def login(username, password):
 
 
 def logout():
+    del session["user_id"]
     del session["username"]
 
 

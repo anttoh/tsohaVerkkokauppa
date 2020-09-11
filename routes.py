@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 from os import getenv
 from app import app
 import users
+import listings
 
 
 @app.route("/")
@@ -50,3 +51,21 @@ def home():
         return redirect("/")
     else:
         return render_template("home.html", username=users.username())
+
+
+@app.route("/create_listing", methods=["get", "post"])
+def create_listing():
+    if users.username() == 0:
+        return redirect("/")
+    if request.method == "GET":
+        return render_template("create_listing.html")
+    if request.method == "POST":
+        item_name = request.form["item"]
+        maker_name = request.form["maker"]
+        price = request.form["price"]
+        categories_string = request.form["categories"]
+        categories_list = categories_string.split(",")
+        if listings.create(item_name, maker_name, price, categories_list):
+            return redirect("/home")
+        else:
+            return render_template("error.html", message="Failed to create a listing")
