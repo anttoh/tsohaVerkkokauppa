@@ -3,6 +3,12 @@ from db import db
 import items
 
 
+def get_list():
+    sql = "SELECT items.name, listings.price, users.username FROM listings INNER JOIN items ON listings.item_id=items.item_id INNER JOIN users ON listings.seller_id=users.user_id"
+    result = db.session.execute(sql)
+    return result.fetchall()
+
+
 def create(item_name, maker_name, price, categories_list):
     try:
         item_id = items.get_and_add_if_nonexistent(item_name, maker_name)

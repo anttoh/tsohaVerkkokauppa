@@ -53,6 +53,14 @@ def home():
         return render_template("home.html", username=users.username())
 
 
+@app.route("/view_listings")
+def view_listings():
+    if users.username() == 0:
+        return redirect("/")
+    else:
+        return render_template("view_listings.html", list=listings.get_list())
+
+
 @app.route("/create_listing", methods=["get", "post"])
 def create_listing():
     if users.username() == 0:
