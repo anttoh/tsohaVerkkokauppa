@@ -1,6 +1,6 @@
 # Verkkokauppa
 
-Sovellus on verkossa toimiva kauppapaikka, jossa henkilöt ja yritykset voivat myydä ja ostaa tavaraa.
+Sovellus on verkossa toimiva kauppapaikka, jossa henkilöt ja yritykset voivat myydä ja ostaa tavaraa. Sovellus löytyy osoitteesta https://thawing-stream-99805.herokuapp.com/
 
 ## Käyttäjätyypit
 ### Ylläpitäjä
