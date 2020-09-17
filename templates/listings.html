@@ -1,0 +1,4 @@
+<p>Item: {{item[0]}} | Maker: {{item[1]}}</p>
+{% for listing in list %}
+<p>Price: {{listing[0]}} | Seller: {{listing[1]}} | <a href="/listing/{{listing[2]}}">buy</a></p>
+{% endfor %}

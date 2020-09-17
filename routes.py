@@ -4,6 +4,8 @@ from os import getenv
 from app import app
 import users
 import listings
+import items
+import orders
 
 
 @app.route("/")
@@ -53,12 +55,33 @@ def home():
         return render_template("home.html", username=users.username())
 
 
-@app.route("/view_listings")
-def view_listings():
+@app.route("/items")
+def view_items():
     if users.username() == 0:
         return redirect("/")
     else:
-        return render_template("view_listings.html", list=listings.get_list())
+        return render_template("items.html", list=items.get_list())
+
+
+@app.route("/listings/<item_id>")
+def view_listings(item_id):
+    if users.username() == 0:
+        return redirect("/")
+    else:
+        return render_template("listings.html", item=items.get(item_id), list=listings.get_list(item_id))
+
+
+@app.route("/listing/<listing_id>", methods=["get", "post"])
+def view_listing(listing_id):
+    if users.username() == 0:
+        return redirect("/")
+    if request.method == "GET":
+        return render_template("listing.html", listing=listings.get(listing_id))
+    if request.method == "POST":
+        if orders.create(listing_id):
+            return redirect("/home")
+        else:
+            return render_template("error.html", message="Failed to create a listing")
 
 
 @app.route("/create_listing", methods=["get", "post"])

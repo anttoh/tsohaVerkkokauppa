@@ -2,6 +2,18 @@ from db import db
 import makers
 
 
+def get_list():
+    sql = "SELECT items.name, makers.name, items.item_id FROM items INNER JOIN makers ON items.maker_id=makers.maker_id"
+    result = db.session.execute(sql)
+    return result.fetchall()
+
+
+def get(item_id):
+    sql = "SELECT items.name, makers.name, items.item_id FROM items INNER JOIN makers ON items.maker_id=makers.maker_id WHERE items.item_id=:item_id"
+    result = db.session.execute(sql, {"item_id": item_id})
+    return result.fetchone()
+
+
 def get_id(item_name, maker_id):
     sql = "SELECT item_id FROM items WHERE name=:name AND maker_id=:maker_id"
     result = db.session.execute(sql, {"name": item_name, "maker_id": maker_id})
