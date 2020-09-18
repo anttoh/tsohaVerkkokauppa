@@ -1,5 +1,6 @@
 from flask import session
 from db import db
+import listings
 
 
 def create(listing_id):
@@ -8,6 +9,7 @@ def create(listing_id):
         db.session.execute(
             sql, {"buyer_id": session["user_id"], "listing_id": listing_id, "sent": 0})
         db.session.commit()
+        listings.hide(listing_id)
         return True
     except:
         return False
