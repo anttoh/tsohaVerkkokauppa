@@ -1,0 +1,3 @@
+{% for order in list %}
+<p>id: {{order[0]}} | active: {{order[1]}} | <a href="/order/{{order[0]}}">buy</a></p>
+{% endfor %}

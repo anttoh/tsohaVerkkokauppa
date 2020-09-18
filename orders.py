@@ -3,6 +3,12 @@ from db import db
 import listings
 
 
+def get(order_id):
+    sql = "SELECT * FROM orders WHERE order_id=:order_id"
+    result = db.session.execute(sql, {"order_id": order_id})
+    return result.fetchone()
+
+
 def create(listing_id):
     try:
         sql = "INSERT INTO orders (buyer_id, listing_id, sent) VALUES (:buyer_id, :listing_id, :sent)"
@@ -20,3 +26,15 @@ def send(order_id):
     db.session.execute(
         sql, {"order_id": order_id})
     db.session.commit()
+
+
+def order_hisroty():
+    sql = "SELECT orders.order_id, orders.sent FROM orders WHERE orders.buyer_id=:user_id"
+    result = db.session.execute(sql, {"user_id": session["user_id"]})
+    return result.fetchall()
+
+
+def active_orders():
+    sql = "SELECT orders.order_id, orders.sent FROM orders INNER JOIN listings ON orders.listing_id=listings.listing_id WHERE listings.seller_id=:user_id"
+    result = db.session.execute(sql, {"user_id": session["user_id"]})
+    return result.fetchall()

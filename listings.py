@@ -4,8 +4,8 @@ import items
 
 
 def get(listing_id):
-    sql = "SELECT * FROM listings"
-    result = db.session.execute(sql)
+    sql = "SELECT * FROM listings WHERE listing_id=:listing_id"
+    result = db.session.execute(sql, {"listing_id": listing_id})
     return result.fetchone()
 
 

@@ -63,6 +63,33 @@ def view_items():
         return render_template("items.html", list=items.get_list())
 
 
+@app.route("/orders")
+def view_orders():
+    if users.username() == 0:
+        return redirect("/")
+    else:
+        return render_template("orders.html", list=orders.active_orders())
+
+
+@app.route("/order/<order_id>", methods=["get", "post"])
+def view_order(order_id):
+    if users.username() == 0:
+        return redirect("/")
+    if request.method == "GET":
+        return render_template("order.html", order=orders.get(order_id))
+    if request.method == "POST":
+        orders.send(order_id)
+        return redirect("/home")
+
+
+@app.route("/history")
+def view_history():
+    if users.username() == 0:
+        return redirect("/")
+    else:
+        return render_template("history.html", list=orders.order_hisroty())
+
+
 @app.route("/listings/<item_id>")
 def view_listings(item_id):
     if users.username() == 0:
