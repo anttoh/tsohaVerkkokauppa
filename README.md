@@ -1,41 +1,37 @@
 # Verkkokauppa
 
-Sovellus on verkossa toimiva kauppapaikka, jossa henkilöt ja yritykset voivat myydä ja ostaa tavaraa. Sovellus löytyy osoitteesta https://thawing-stream-99805.herokuapp.com/
+Sovellus on verkossa toimiva kauppapaikka, jossa henkilöt voivat myydä ja ostaa tavaraa. Sovellus löytyy osoitteesta https://thawing-stream-99805.herokuapp.com/
+
+## Sovelluksen nykyinen tilanne (20.9)
+Sovelluksen tuotteiden hakutoimintoja ei ole vielä toteutettu, vaan kaikki tuotteet ovat yhtenä listana. Myöskään tuotteiden ja myyjien arviointi ei ole vielä mahdollista. Sovelluksen ulkoasu on vielä hyvin alkeellinen. Sovelluksen koodikin on vielä refaktorointia vaille.
+### Kuinka testata
+Rekistöröi itsellesi käyttä/käyttäjiä ja listaa tavaraa myyntiin sekä tilaa listaamiasi tavaroita.
 
 ## Käyttäjätyypit
-### Ylläpitäjä
-- voi poistaa epäilyttäviä listauksia (myytäviä tuotteita)
-- voi poistaa epäityäviä myyjiä, jolloin kaikki myyjän tuotteet poistuvat myynnistä
+### Ylläpitäjä (TODO)
+- voi poistaa listauksia
+- voi poistaa käyttäjiä
 - voi lisätä uusia tuotekategorioita sovellukseen
-- voi merkitä myyjän(käyttäjän) luotettavaksi (esim. tunnettu yritys)
-- voi estää käyttäjää toimimasta jommassakummassa tai molemmissa rooleissa (ostaja ja myyjä)
-- voi poistaa käyttäjän
 
 ### Käyttäjä
-Käyttäjä voi toimia kahdessa roolissa, ostajana tai myyjänä, ja rooleja voi vaihtaa.
 
-#### Ostajana
 - voi ostaa tuotteita
-- voi arvioida ostamiaan tuotteitta
-- voi arvioida ostamiensa tuotteiden myyjää
-- voi ilmoittaa listauksen epäilyttäväksi
-- voi ilmoittaa myyjän epäilyttäväksi
-- voi hakea tuotteita sovelluksesta
-- voi selata myyjän listauksia
+- voi myydä tuotteita
+- voi käsitellä tuotteidensa tilauksia
 - näkee oman tilaushistoriansa
 - pystyy seuraamaan tilauksiaan (esim. tilaus käsittelyssä tai tilaus matkalla)
-- pystyy perumaan tilauksen, jos sitä ei ole vielä käsitelty.
-
-#### Myyjänä
-- voi listata tuotteita myyntiin
-- voi poistaa listaamiaan tuotteita myynnistä
-- voi muuttaa listattujen tuotteidensa hintaa, tuotekuvausta jne.
-- käsittelee tuotteidensa tilauksia
-- voi tarkastella tuotteidensa myyntihistoriaa
+- pystyy perumaan tilauksen, jos sitä ei ole vielä käsitelty (TODO)
+- voi poistaa listaamiaan tuotteita myynnistä (TODO)
+- voi arvioida ostamiaan tuotteitta (TODO)
+- voi arvioida ostamiensa tuotteiden myyjää (TODO)
+- voi ilmoittaa listauksen epäilyttäväksi (TODO)
+- voi ilmoittaa myyjän epäilyttäväksi (TODO)
+- voi hakea tuotteita sovelluksesta (TODO)
+- voi selata myyjän listauksia (TODO)
 
 ## Tietokantataulut
 - käyttäjä
-- tuote (samalla tuotteella (esim Pokemon Sword) voi olla usea listaus, joissa on eri hinta ja myyjä)
+- tuote (samalla tuotteella (esim Super Mario 64) voi olla usea listaus, joissa on eri hinta ja myyjä)
 - listaus (tuote, myyjä ja hinta)
 - tilaus (ostaja ja listaus)
 - valmistaja (tuotteen valmistaja esim. Nintendo) 
