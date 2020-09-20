@@ -29,12 +29,12 @@ def send(order_id):
 
 
 def order_hisroty():
-    sql = "SELECT orders.order_id, orders.sent FROM orders WHERE orders.buyer_id=:user_id"
+    sql = "SELECT orders.sent, items.name FROM orders INNER JOIN listings ON orders.listing_id=listings.listing_id INNER JOIN items ON listings.item_id=items.item_id WHERE orders.buyer_id=:user_id"
     result = db.session.execute(sql, {"user_id": session["user_id"]})
     return result.fetchall()
 
 
 def active_orders():
-    sql = "SELECT orders.order_id, orders.sent FROM orders INNER JOIN listings ON orders.listing_id=listings.listing_id WHERE listings.seller_id=:user_id"
+    sql = "SELECT items.name, orders.order_id FROM orders INNER JOIN listings ON orders.listing_id=listings.listing_id INNER JOIN items ON listings.item_id=items.item_id WHERE listings.seller_id=:user_id AND orders.sent=0"
     result = db.session.execute(sql, {"user_id": session["user_id"]})
     return result.fetchall()
