@@ -60,7 +60,13 @@ def view_items():
     if users.username() == 0:
         return redirect("/")
     else:
-        return render_template("items.html", list=items.get_list())
+        try:
+            query_string = request.args["query"]
+            query_list = query_string.split(",")
+        except:
+            query_list = [""]
+
+        return render_template("items.html", list=items.get_list(query_list))
 
 
 @app.route("/orders")
@@ -121,9 +127,8 @@ def create_listing():
         item_name = request.form["item"]
         maker_name = request.form["maker"]
         price = request.form["price"]
-        categories_string = request.form["categories"]
-        categories_list = categories_string.split(",")
-        if listings.create(item_name, maker_name, price, categories_list):
+        tags = request.form["categories"]
+        if listings.create(item_name, maker_name, price, tags):
             return redirect("/home")
         else:
             return render_template("error.html", message="Failed to create a listing")

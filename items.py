@@ -3,17 +3,30 @@ import makers
 import listings
 
 
-def filter_items_without_listings(item):
-    num_of_listings = len(listings.get_list(item[2]))
-    return num_of_listings != 0
-
-
-def get_list():
+def get_list(searchwords):
     sql = "SELECT items.name, makers.name, items.item_id FROM items INNER JOIN makers ON items.maker_id=makers.maker_id"
     result = db.session.execute(sql)
     items = result.fetchall()
-    filtered_items = filter(filter_items_without_listings, items)
-    return filtered_items
+    filterer_items = []
+    found = False
+    for item in items:
+        items_listings = listings.get_list(item[2])
+        if len(items_listings) == 0:
+            continue
+        for word in searchwords:
+            if word in item[0] or word in item[1]:
+                filterer_items.insert(0, item)
+                break
+            else:
+                for listing in items_listings:
+                    if word in listing[3]:
+                        filterer_items.append(item)
+                        found = True
+                        break
+                if found:
+                    found = False
+                    break
+    return filterer_items
 
 
 def get(item_id):
