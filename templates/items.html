@@ -1,10 +1,13 @@
+{% extends "layout.html" %}
+{% block title %}{% endblock %}
+{% block content %}
 <form action="" method="GET">
     Searchwords: <input type="text" name="query" placeholder="e.g. mario,nintendo,games">
     <br>
     <input type="submit" value="query">
 </form>
-<a href="/items">all</a>
-<a href="/home">home</a>
+<a href="/items">reset</a>
 {% for item in list %}
 <p>Item: {{item[0]}} | Maker: {{item[1]}} | <a href="/listings/{{item[2]}}">view listings</a></p>
 {% endfor %}
+{% endblock %}

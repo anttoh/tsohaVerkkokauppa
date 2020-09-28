@@ -1,10 +1,10 @@
+{% extends "layout.html" %}
+{% block title %}{% endblock %}
+{% block content %}
 <p>Hello {{ username }}</p>
-<a href="/create_listing">Sell an item</a>
+<a href="/items">Buy</a>
 <p> </p>
-<a href="/items">View items for sale</a>
-<p> </p>
-<a href="/history">Order history</a>
+<a href="/create_listing">Sell</a>
 <p> </p>
 <a href="/orders">Pending ordres</a>
-<p> </p>
-<a href="/logout">Logout</a>
+{% endblock %}

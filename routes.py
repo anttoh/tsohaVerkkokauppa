@@ -55,6 +55,14 @@ def home():
         return render_template("home.html", username=users.username())
 
 
+@app.route("/profile")
+def view_profile():
+    if users.username() == 0:
+        return redirect("/")
+    else:
+        return render_template("profile.html")
+
+
 @app.route("/items")
 def view_items():
     if users.username() == 0:
@@ -69,12 +77,36 @@ def view_items():
         return render_template("items.html", list=items.get_list(query_list))
 
 
+@app.route("/bought")
+def view_bought_items():
+    if users.username() == 0:
+        return redirect("/")
+    else:
+        return render_template("bought.html", list=orders.bought_items())
+
+
+@app.route("/sold")
+def view_sold_items():
+    if users.username() == 0:
+        return redirect("/")
+    else:
+        return render_template("sold.html", list=orders.sold_items())
+
+
+@app.route("/active_orders")
+def view_active_orders():
+    if users.username() == 0:
+        return redirect("/")
+    else:
+        return render_template("active_orders.html", list=orders.active_orders())
+
+
 @app.route("/orders")
 def view_orders():
     if users.username() == 0:
         return redirect("/")
     else:
-        return render_template("orders.html", list=orders.active_orders())
+        return render_template("orders.html", list=orders.pending_orders())
 
 
 @app.route("/order/<order_id>", methods=["get", "post"])
@@ -88,12 +120,13 @@ def view_order(order_id):
         return redirect("/home")
 
 
-@app.route("/history")
-def view_history():
+@app.route("/cancel_order/<order_id>", methods=["post"])
+def cancel_order(order_id):
     if users.username() == 0:
         return redirect("/")
-    else:
-        return render_template("history.html", list=orders.order_hisroty())
+    if request.method == "POST":
+        orders.cancel(order_id)
+        return redirect("/home")
 
 
 @app.route("/listings/<item_id>")

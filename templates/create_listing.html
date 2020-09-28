@@ -1,3 +1,6 @@
+{% extends "layout.html" %}
+{% block title %}{% endblock %}
+{% block content %}
 <form action="/create_listing" method="post">
     <input type="text" name="item" placeholder="name of the item">
     <input type="text" name="maker" placeholder="maker of the item">
@@ -6,3 +9,4 @@
     <input type="submit" value="add your listing">
 </form>
 <a href="/home">cancel</a>
+{% endblock %}

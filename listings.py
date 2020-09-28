@@ -16,6 +16,13 @@ def hide(listing_id):
     db.session.commit()
 
 
+def set_visible(listing_id):
+    sql = "UPDATE listings SET visible = 1 WHERE listing_id = :listing_id"
+    db.session.execute(
+        sql, {"listing_id": listing_id})
+    db.session.commit()
+
+
 def get_list(item_id):
     sql = "SELECT listings.price, users.username, listings.listing_id, listings.tags FROM listings INNER JOIN items ON listings.item_id=items.item_id INNER JOIN users ON listings.seller_id=users.user_id WHERE items.item_id=:item_id AND listings.visible=1"
     result = db.session.execute(sql, {"item_id": item_id})
