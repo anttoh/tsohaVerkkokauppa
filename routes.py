@@ -109,45 +109,12 @@ def view_orders():
         return render_template("orders.html", list=orders.pending_orders())
 
 
-@app.route("/order/<order_id>", methods=["get", "post"])
-def view_order(order_id):
-    if users.username() == 0:
-        return redirect("/")
-    if request.method == "GET":
-        return render_template("order.html", order=orders.get(order_id))
-    if request.method == "POST":
-        orders.send(order_id)
-        return redirect("/home")
-
-
-@app.route("/cancel_order/<order_id>", methods=["post"])
-def cancel_order(order_id):
-    if users.username() == 0:
-        return redirect("/")
-    if request.method == "POST":
-        orders.cancel(order_id)
-        return redirect("/home")
-
-
 @app.route("/listings/<item_id>")
 def view_listings(item_id):
     if users.username() == 0:
         return redirect("/")
     else:
         return render_template("listings.html", item=items.get(item_id), list=listings.get_list(item_id))
-
-
-@app.route("/listing/<listing_id>", methods=["get", "post"])
-def view_listing(listing_id):
-    if users.username() == 0:
-        return redirect("/")
-    if request.method == "GET":
-        return render_template("listing.html", listing=listings.get(listing_id))
-    if request.method == "POST":
-        if orders.create(listing_id):
-            return redirect("/home")
-        else:
-            return render_template("error.html", message="Failed to create a listing")
 
 
 @app.route("/create_listing", methods=["get", "post"])
@@ -165,3 +132,30 @@ def create_listing():
             return redirect("/home")
         else:
             return render_template("error.html", message="Failed to create a listing")
+
+
+@app.route("/buy/<listing_id>", methods=["post"])
+def view_listing(listing_id):
+    if users.username() == 0:
+        return redirect("/")
+    if request.method == "POST":
+        orders.create(listing_id)
+        return redirect("/home")
+
+
+@app.route("/send/<order_id>", methods=["post"])
+def view_order(order_id):
+    if users.username() == 0:
+        return redirect("/")
+    if request.method == "POST":
+        orders.send(order_id)
+        return redirect("/home")
+
+
+@app.route("/cancel_order/<order_id>", methods=["post"])
+def cancel_order(order_id):
+    if users.username() == 0:
+        return redirect("/")
+    if request.method == "POST":
+        orders.cancel(order_id)
+        return redirect("/home")

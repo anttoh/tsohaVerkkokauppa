@@ -2,7 +2,7 @@
 {% block title %}{% endblock %}
 {% block content %}
 {% for order in list %}
-<p>item: {{order[0]}} |
+<p>item: {{order[0]}}
     <form action="/cancel_order/{{order[1]}}" method="post">
         <input type="submit" value="cancel order">
     </form>
