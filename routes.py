@@ -98,7 +98,7 @@ def view_unsold_items():
     if users.username() == 0:
         return redirect("/")
     else:
-        return render_template("sold.html", list=listings.unsold_items())
+        return render_template("unsold.html", list=listings.unsold_items())
 
 
 @app.route("/active_orders")
