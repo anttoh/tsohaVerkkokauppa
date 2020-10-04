@@ -24,8 +24,15 @@ def set_visible(listing_id):
 
 
 def get_list(item_id):
-    sql = "SELECT listings.price, users.username, listings.listing_id, listings.tags FROM listings INNER JOIN items ON listings.item_id=items.item_id INNER JOIN users ON listings.seller_id=users.user_id WHERE items.item_id=:item_id AND listings.visible=1"
-    result = db.session.execute(sql, {"item_id": item_id})
+    sql = "SELECT listings.price, users.username, listings.listing_id, listings.tags FROM listings INNER JOIN items ON listings.item_id=items.item_id INNER JOIN users ON listings.seller_id=users.user_id WHERE items.item_id=:item_id AND listings.visible=1 AND listings.seller_id!=:user_id"
+    result = db.session.execute(
+        sql, {"item_id": item_id, "user_id": session["user_id"]})
+    return result.fetchall()
+
+
+def unsold_items():
+    sql = "SELECT items.name FROM listings INNER JOIN items ON listings.item_id=items.item_id WHERE listings.seller_id=:user_id AND listings.visible=1"
+    result = db.session.execute(sql, {"user_id": session["user_id"]})
     return result.fetchall()
 
 

@@ -93,6 +93,14 @@ def view_sold_items():
         return render_template("sold.html", list=orders.sold_items())
 
 
+@app.route("/unsold")
+def view_unsold_items():
+    if users.username() == 0:
+        return redirect("/")
+    else:
+        return render_template("sold.html", list=listings.unsold_items())
+
+
 @app.route("/active_orders")
 def view_active_orders():
     if users.username() == 0:
