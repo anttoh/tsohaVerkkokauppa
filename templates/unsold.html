@@ -1,6 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
-{% for order in list %}
-<p>Item: {{order[0]}}</p>
+{% for listing in list %}
+<p>Item: {{listing[1]}}</p>
+<form action="/delete/{{listing[0]}}" method="post">
+    <input type="submit" value="remove listing">
+</form>
 {% endfor %}
 {% endblock %}

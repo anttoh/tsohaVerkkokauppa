@@ -12,7 +12,6 @@ def login(username, password):
     else:
         if check_password_hash(user[0], password):
             session["user_id"] = user[1]
-            session["username"] = username
             return True
         else:
             return False
@@ -20,7 +19,6 @@ def login(username, password):
 
 def logout():
     del session["user_id"]
-    del session["username"]
 
 
 def register(username, password):
@@ -34,5 +32,5 @@ def register(username, password):
     return login(username, password)
 
 
-def username():
-    return session.get("username", 0)
+def not_logged_in():
+    return (session.get("user_id", -1) == -1)

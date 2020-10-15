@@ -7,7 +7,7 @@ def get_list(searchwords):
     sql = "SELECT items.name, makers.name, items.item_id FROM items INNER JOIN makers ON items.maker_id=makers.maker_id"
     result = db.session.execute(sql)
     items = result.fetchall()
-    filterer_items = []
+    filtered_items = []
     found = False
     for item in items:
         items_listings = listings.get_list(item[2])
@@ -15,18 +15,18 @@ def get_list(searchwords):
             continue
         for word in searchwords:
             if word in item[0] or word in item[1]:
-                filterer_items.insert(0, item)
+                filtered_items.insert(0, item)
                 break
             else:
                 for listing in items_listings:
                     if word in listing[3]:
-                        filterer_items.append(item)
+                        filtered_items.append(item)
                         found = True
                         break
                 if found:
                     found = False
                     break
-    return filterer_items
+    return filtered_items
 
 
 def get(item_id):

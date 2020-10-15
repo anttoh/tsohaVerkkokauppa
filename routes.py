@@ -28,7 +28,7 @@ def login():
 
 @app.route("/logout")
 def logout():
-    if users.username() != 0:
+    if users.not_logged_in() == False:
         users.logout()
 
     return redirect("/")
@@ -49,15 +49,15 @@ def register():
 
 @app.route("/home")
 def home():
-    if users.username() == 0:
+    if users.not_logged_in():
         return redirect("/")
     else:
-        return render_template("home.html", username=users.username())
+        return render_template("home.html")
 
 
 @app.route("/profile")
 def view_profile():
-    if users.username() == 0:
+    if users.not_logged_in():
         return redirect("/")
     else:
         return render_template("profile.html")
@@ -65,7 +65,7 @@ def view_profile():
 
 @app.route("/items")
 def view_items():
-    if users.username() == 0:
+    if users.not_logged_in():
         return redirect("/")
     else:
         try:
@@ -79,7 +79,7 @@ def view_items():
 
 @app.route("/bought")
 def view_bought_items():
-    if users.username() == 0:
+    if users.not_logged_in():
         return redirect("/")
     else:
         return render_template("bought.html", list=orders.bought_items())
@@ -87,7 +87,7 @@ def view_bought_items():
 
 @app.route("/sold")
 def view_sold_items():
-    if users.username() == 0:
+    if users.not_logged_in():
         return redirect("/")
     else:
         return render_template("sold.html", list=orders.sold_items())
@@ -95,7 +95,7 @@ def view_sold_items():
 
 @app.route("/unsold")
 def view_unsold_items():
-    if users.username() == 0:
+    if users.not_logged_in():
         return redirect("/")
     else:
         return render_template("unsold.html", list=listings.unsold_items())
@@ -103,7 +103,7 @@ def view_unsold_items():
 
 @app.route("/active_orders")
 def view_active_orders():
-    if users.username() == 0:
+    if users.not_logged_in():
         return redirect("/")
     else:
         return render_template("active_orders.html", list=orders.active_orders())
@@ -111,7 +111,7 @@ def view_active_orders():
 
 @app.route("/orders")
 def view_orders():
-    if users.username() == 0:
+    if users.not_logged_in():
         return redirect("/")
     else:
         return render_template("orders.html", list=orders.pending_orders())
@@ -119,7 +119,7 @@ def view_orders():
 
 @app.route("/listings/<item_id>")
 def view_listings(item_id):
-    if users.username() == 0:
+    if users.not_logged_in():
         return redirect("/")
     else:
         return render_template("listings.html", item=items.get(item_id), list=listings.get_list(item_id))
@@ -127,7 +127,7 @@ def view_listings(item_id):
 
 @app.route("/create_listing", methods=["get", "post"])
 def create_listing():
-    if users.username() == 0:
+    if users.not_logged_in():
         return redirect("/")
     if request.method == "GET":
         return render_template("create_listing.html")
@@ -135,16 +135,23 @@ def create_listing():
         item_name = request.form["item"]
         maker_name = request.form["maker"]
         price = request.form["price"]
-        tags = request.form["categories"]
-        if listings.create(item_name, maker_name, price, tags):
-            return redirect("/home")
-        else:
-            return render_template("error.html", message="Failed to create a listing")
+        tags = request.form["tags"]
+        listings.create(item_name, maker_name, price, tags)
+        return redirect("/home")
+
+
+@app.route("/delete/<listing_id>", methods=["post"])
+def remove_listing(listing_id):
+    if users.not_logged_in():
+        return redirect("/")
+    if request.method == "POST":
+        listings.delete(listing_id)
+        return redirect("/home")
 
 
 @app.route("/buy/<listing_id>", methods=["post"])
 def view_listing(listing_id):
-    if users.username() == 0:
+    if users.not_logged_in():
         return redirect("/")
     if request.method == "POST":
         orders.create(listing_id)
@@ -153,7 +160,7 @@ def view_listing(listing_id):
 
 @app.route("/send/<order_id>", methods=["post"])
 def view_order(order_id):
-    if users.username() == 0:
+    if users.not_logged_in():
         return redirect("/")
     if request.method == "POST":
         orders.send(order_id)
@@ -162,7 +169,7 @@ def view_order(order_id):
 
 @app.route("/cancel_order/<order_id>", methods=["post"])
 def cancel_order(order_id):
-    if users.username() == 0:
+    if users.not_logged_in():
         return redirect("/")
     if request.method == "POST":
         orders.cancel(order_id)
