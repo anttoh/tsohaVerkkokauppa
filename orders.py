@@ -10,20 +10,17 @@ def get(order_id):
 
 
 def create(listing_id):
-    try:
-        sql = "INSERT INTO orders (buyer_id, listing_id, sent) VALUES (:buyer_id, :listing_id, :sent)"
-        db.session.execute(
-            sql, {"buyer_id": session["user_id"], "listing_id": listing_id, "sent": 0})
-        db.session.commit()
-        listings.hide(listing_id)
-        return True
-    except:
-        return False
+    sql = "INSERT INTO orders (buyer_id, listing_id, sent) VALUES (:buyer_id, :listing_id, :sent)"
+    db.session.execute(
+        sql, {"buyer_id": session["user_id"], "listing_id": listing_id, "sent": 0})
+    db.session.commit()
+    listings.hide(listing_id)
 
 
 def cancel(order_id):
     sql = "DELETE FROM orders WHERE order_id=:order_id RETURNING listing_id"
     result = db.session.execute(sql, {"order_id": order_id})
+    db.session.commit()
     listings.set_visible(result.fetchone()[0])
 
 
