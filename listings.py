@@ -32,6 +32,9 @@ def get_list(item_id):
 
 
 def delete(listing_id):
+    sql = "DELETE FROM listing_tag WHERE listing_id=:listing_id"
+    db.session.execute(sql, {"listing_id": listing_id})
+    db.session.commit()
     sql = "DELETE FROM listings WHERE listing_id=:listing_id"
     db.session.execute(sql, {"listing_id": listing_id})
     db.session.commit()
