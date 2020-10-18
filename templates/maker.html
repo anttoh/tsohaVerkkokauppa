@@ -1,0 +1,6 @@
+{% extends "layout.html" %}
+{% block content %}
+{% for item in list %}
+<p>Item: {{item[0]}} | <a href="/listings/{{item[1]}}">view listings</a></p>
+{% endfor %}
+{% endblock %}

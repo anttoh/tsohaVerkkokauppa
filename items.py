@@ -1,6 +1,7 @@
 from db import db
 import makers
 import listings
+import tags
 
 
 def get_list(searchwords):
@@ -19,7 +20,10 @@ def get_list(searchwords):
                 break
             else:
                 for listing in items_listings:
-                    if word in listing[3]:
+                    tags_set = []
+                    for tag in tags.get_list(listing[2]):
+                        tags_set.append(tag[0])
+                    if word in tags_set:
                         filtered_items.append(item)
                         found = True
                         break

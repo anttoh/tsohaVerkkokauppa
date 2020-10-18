@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
-<p>Item: {{item[0]}} | Maker: {{item[1]}}</p>
+<p>Item: {{item[0]}} | Maker: <a href="/maker/{{item[1]}}">{{item[1]}}</a></p>
 {% for listing in list %}
 <p>Price: {{listing[0]}} | Seller: {{listing[1]}}
     <form action="/buy/{{listing[2]}}" method="post">

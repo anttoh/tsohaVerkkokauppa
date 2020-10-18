@@ -2,10 +2,13 @@ from flask import render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from os import getenv
 from app import app
+import re
 import users
 import listings
 import items
 import orders
+import makers
+import tags
 
 
 @app.route("/")
@@ -44,7 +47,7 @@ def register():
         if users.register(username, password):
             return redirect("/")
         else:
-            return render_template("error.html", message="Failed to register")
+            return render_template("error.html", message="Failed to register. Try choosing another username and make sure neither username or password are over 100 charecters long.")
 
 
 @app.route("/home")
@@ -125,6 +128,14 @@ def view_listings(item_id):
         return render_template("listings.html", item=items.get(item_id), list=listings.get_list(item_id))
 
 
+@app.route("/maker/<maker_name>")
+def view_maker(maker_name):
+    if users.not_logged_in():
+        return redirect("/")
+    else:
+        return render_template("maker.html", list=makers.get_list(maker_name))
+
+
 @app.route("/create_listing", methods=["get", "post"])
 def create_listing():
     if users.not_logged_in():
@@ -135,9 +146,13 @@ def create_listing():
         item_name = request.form["item"]
         maker_name = request.form["maker"]
         price = request.form["price"]
+        description = request.form["description"]
         tags = request.form["tags"]
-        listings.create(item_name, maker_name, price, tags)
-        return redirect("/home")
+        tags = re.split(" , |, | ,|,", tags)
+        if listings.create(item_name, maker_name, price, description, tags):
+            return redirect("/home")
+        else:
+            return render_template("error.html", message="Failed to create a listing. If you didn't leave the name of the item empty then you must have added too many tags or used too many charecters.")
 
 
 @app.route("/delete/<listing_id>", methods=["post"])

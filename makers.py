@@ -19,3 +19,9 @@ def get_and_add_if_nonexistent(name):
         add(name)
         maker_id = get_id(name)
     return maker_id[0]
+
+
+def get_list(name):
+    sql = "SELECT name, item_id FROM items WHERE maker_id=:maker_id"
+    result = db.session.execute(sql, {"maker_id": get_id(name)[0]})
+    return result.fetchall()
