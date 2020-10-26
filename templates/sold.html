@@ -1,6 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
+<p>Items you've sold:</p>
 {% for order in list %}
-<p>Item: {{order[0]}}</p>
+<p>Item: {{order[0]}} | Maker: {{order[1]}} | Price: {{order[2]}} | Buyer: {{order[3]}}</p>
 {% endfor %}
 {% endblock %}

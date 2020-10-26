@@ -1,7 +1,8 @@
 {% extends "layout.html" %}
 {% block content %}
+<p>Items you're selling:</p>
 {% for listing in list %}
-<p>Item: {{listing[1]}}</p>
+<p>Item: {{listing[1]}} | Maker: {{listing[2]}} | Price: {{listing[3]}}</p>
 <form action="/delete/{{listing[0]}}" method="post">
     <input type="submit" value="remove listing">
 </form>

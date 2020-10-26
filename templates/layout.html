@@ -1,8 +1,24 @@
 <!doctype html>
 <title>Online Shop</title>
-<a href="/home">Home</a>
-<a href="/profile">Profile</a>
-<a href="/logout">Logout</a>
+Logged in as {{session.username}} <a href="/logout">Logout</a>
+<p id="role"></p> 
+<a id="switch" href="/">Switch roles</a>
+<p></p>
+<a id="back" href="/">Back</a>
 <hr>
 {% block content %}{% endblock %}
 <hr>
+{% if session.role == "buyer" %}
+<script>
+    document.getElementById("back").setAttribute('href', "/buyer");
+    document.getElementById("switch").setAttribute('href', "/seller");
+    document.getElementById("role").textContent = 'Current role: Buyer';
+</script>
+{% endif %}
+{% if session.role == "seller" %}
+<script>
+    document.getElementById("back").setAttribute('href', "/seller");
+    document.getElementById("switch").setAttribute('href', "/buyer");
+    document.getElementById("role").textContent = 'Current role: Seller';
+</script>
+{% endif %}

@@ -1,12 +1,13 @@
 {% extends "layout.html" %}
 {% block title %}{% endblock %}
 {% block content %}
+<p>Orders placed for you'r listings:</p>
 {% for order in list %}
-<p>item: {{order[0]}}
-    <form action="/send/{{order[1]}}" method="post">
+<p>Item: {{order[1]}} | Maker: {{order[2]}} | Price: {{order[3]}} | Buyer: {{order[4]}}</p>
+    <form action="/send/{{order[0]}}" method="post">
         <input type="submit" value="send">
     </form>
-    <form action="/cancel_order/{{order[1]}}" method="post">
+    <form action="/cancel_order/{{order[0]}}" method="post">
         <input type="submit" value="cancel order">
     </form>
 </p>

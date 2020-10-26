@@ -1,8 +1,9 @@
 {% extends "layout.html" %}
 {% block content %}
+<p>Orders you've placed:</p>
 {% for order in list %}
-<p>item: {{order[0]}}
-    <form action="/cancel_order/{{order[1]}}" method="post">
+<p>Item: {{order[1]}} | Maker: {{order[2]}} | Price: {{order[3]}} | Seller: {{order[4]}}</p>
+    <form action="/cancel_order/{{order[0]}}" method="post">
         <input type="submit" value="cancel order">
     </form>
 </p>

@@ -41,7 +41,7 @@ def delete(listing_id):
 
 
 def unsold_items():
-    sql = "SELECT listings.listing_id, items.name FROM listings INNER JOIN items ON listings.item_id=items.item_id WHERE listings.seller_id=:user_id AND listings.visible=1"
+    sql = "SELECT listings.listing_id, items.name, makers.name, listings.price FROM listings INNER JOIN items ON listings.item_id=items.item_id INNER JOIN makers ON items.maker_id=makers.maker_id WHERE listings.seller_id=:user_id AND listings.visible=1"
     result = db.session.execute(sql, {"user_id": session["user_id"]})
     return result.fetchall()
 

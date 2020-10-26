@@ -31,25 +31,25 @@ def send(order_id):
     db.session.commit()
 
 
-def bought_items():
-    sql = "SELECT items.name FROM orders INNER JOIN listings ON orders.listing_id=listings.listing_id INNER JOIN items ON listings.item_id=items.item_id WHERE orders.buyer_id=:user_id AND orders.sent=1"
+def sold_items():
+    sql = "SELECT items.name, makers.name, listings.price, users.username FROM orders INNER JOIN listings ON orders.listing_id=listings.listing_id INNER JOIN users ON orders.buyer_id=users.user_id INNER JOIN items ON listings.item_id=items.item_id INNER JOIN makers ON items.maker_id=makers.maker_id WHERE listings.seller_id=:user_id AND orders.sent=1"
     result = db.session.execute(sql, {"user_id": session["user_id"]})
     return result.fetchall()
 
 
-def sold_items():
-    sql = "SELECT items.name FROM orders INNER JOIN listings ON orders.listing_id=listings.listing_id INNER JOIN items ON listings.item_id=items.item_id WHERE listings.seller_id=:user_id AND orders.sent=1"
+def bought_items():
+    sql = "SELECT items.name, makers.name, listings.price, users.username FROM orders INNER JOIN listings ON orders.listing_id=listings.listing_id INNER JOIN users ON listings.seller_id=users.user_id INNER JOIN items ON listings.item_id=items.item_id INNER JOIN makers ON items.maker_id=makers.maker_id WHERE orders.buyer_id=:user_id AND orders.sent=1"
     result = db.session.execute(sql, {"user_id": session["user_id"]})
     return result.fetchall()
 
 
 def pending_orders():
-    sql = "SELECT items.name, orders.order_id FROM orders INNER JOIN listings ON orders.listing_id=listings.listing_id INNER JOIN items ON listings.item_id=items.item_id WHERE listings.seller_id=:user_id AND orders.sent=0"
+    sql = "SELECT orders.order_id, items.name, makers.name, listings.price, users.username FROM orders INNER JOIN listings ON orders.listing_id=listings.listing_id INNER JOIN users ON orders.buyer_id=users.user_id INNER JOIN items ON listings.item_id=items.item_id INNER JOIN makers ON items.maker_id=makers.maker_id WHERE listings.seller_id=:user_id AND orders.sent=0"
     result = db.session.execute(sql, {"user_id": session["user_id"]})
     return result.fetchall()
 
 
 def active_orders():
-    sql = "SELECT items.name, orders.order_id FROM orders INNER JOIN listings ON orders.listing_id=listings.listing_id INNER JOIN items ON listings.item_id=items.item_id WHERE orders.buyer_id=:user_id AND orders.sent=0"
+    sql = "SELECT orders.order_id, items.name, makers.name, listings.price, users.username FROM orders INNER JOIN listings ON orders.listing_id=listings.listing_id INNER JOIN users ON listings.seller_id=users.user_id INNER JOIN items ON listings.item_id=items.item_id INNER JOIN makers ON items.maker_id=makers.maker_id WHERE orders.buyer_id=:user_id AND orders.sent=0"
     result = db.session.execute(sql, {"user_id": session["user_id"]})
     return result.fetchall()
