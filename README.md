@@ -4,7 +4,7 @@ Sovellus on yksinkertainen verkossa toimiva kauppapaikka, jossa henkilöt voivat
 
 
 ### Kuinka testata
-Rekistöröi itsellesi ainakin pari käyttäjää ja listaa tavaraa myyntiin sekä tilaa listaamiasi tavaroita. Käyttäjä ei näe omia listauksiaan myynnissä. Tilattu tuote näkyy profiilin osiossa active orders, kunnes tuotteen myyjä lähettää tilauksen osiosta pending orders. Kun tilaus on lähetetty siirtyy se ostajan profiilissa osioon bought items ja myyjän profiilissa osioon sold items. Myyjä näkee listaamansa tuotteet, joita ei ole tilattu osiossa unsold items.
+Rekistöröi itsellesi ainakin kaksi käyttäjää, joista toinen toimii myyjänä ja toinen ostajana. Ensiksi listaa tavaraa myyntiin myyjänä. Tämän jälkeen tilaa jokin myynnissä olevista tuotteista ostajana. Lopuksi vielä lähetä tilattu tuote myyjänä.
 
 ### Käyttäjä
 
