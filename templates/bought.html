@@ -1,6 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
-Items you've bought:
+{% if list == [] %}
+<p>You don't have fulfilled orders. (Check <a href="/active_orders">orders</a> section for orders you've placed that haven't been fulfilled yet by the seller)</p>
+{% else %}
+<p>Items you've bought:</p>
+{% endif %}
 {% for order in list %}
 <p>Item: {{order[0]}} | Maker: {{order[1]}} | Price: {{order[2]}} | Seller: {{order[3]}}</p>
 {% endfor %}

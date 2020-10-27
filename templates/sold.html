@@ -1,6 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
+{% if list == [] %}
+<p>You haven't sold anything. (Check <a href="/orders">orders</a> section for your listings that have an order placed on them, and click send to fulfill the order)</p>
+{% else %}
 <p>Items you've sold:</p>
+{% endif %}
 {% for order in list %}
 <p>Item: {{order[0]}} | Maker: {{order[1]}} | Price: {{order[2]}} | Buyer: {{order[3]}}</p>
 {% endfor %}

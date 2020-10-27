@@ -1,7 +1,11 @@
 {% extends "layout.html" %}
 {% block title %}{% endblock %}
 {% block content %}
-<p>Orders placed for you'r listings:</p>
+{% if list == [] %}
+<p>You haven't recieved any orders. (Check <a href="/unsold">unsold</a> section for your listings that haven't been ordered)</p>
+{% else %}
+<p>Orders for you'r listings:</p>
+{% endif %}
 {% for order in list %}
 <p>Item: {{order[1]}} | Maker: {{order[2]}} | Price: {{order[3]}} | Buyer: {{order[4]}}</p>
     <form action="/send/{{order[0]}}" method="post">

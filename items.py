@@ -21,7 +21,7 @@ def get_list(searchwords):
             else:
                 for listing in items_listings:
                     tags_set = []
-                    for tag in tags.get_list(listing[2]):
+                    for tag in tags.get_list(listing[3]):
                         tags_set.append(tag[0])
                     if word in tags_set:
                         filtered_items.append(item)

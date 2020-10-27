@@ -76,14 +76,6 @@ def seller():
         return render_template("seller.html")
 
 
-@ app.route("/profile")
-def view_profile():
-    if users.not_logged_in():
-        return redirect("/")
-    else:
-        return render_template("profile.html")
-
-
 @ app.route("/items")
 def view_items():
     if users.not_logged_in():

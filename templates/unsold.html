@@ -1,6 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
+{% if list == [] %}
+<p>You don't have any active listings. (Check <a href="/orders">orders</a> section for your listings that have an order placed on them)</p>
+{% else %}
 <p>Items you're selling:</p>
+{% endif %}
 {% for listing in list %}
 <p>Item: {{listing[1]}} | Maker: {{listing[2]}} | Price: {{listing[3]}}</p>
 <form action="/delete/{{listing[0]}}" method="post">

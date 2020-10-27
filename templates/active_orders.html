@@ -1,6 +1,10 @@
 {% extends "layout.html" %}
 {% block content %}
+{% if list == [] %}
+<p>You don't have any active orders. (Check <a href="/bought">bought items</a> section for your orders that have been fulfilled by the seller)</p>
+{% else %}
 <p>Orders you've placed:</p>
+{% endif %}
 {% for order in list %}
 <p>Item: {{order[1]}} | Maker: {{order[2]}} | Price: {{order[3]}} | Seller: {{order[4]}}</p>
     <form action="/cancel_order/{{order[0]}}" method="post">
