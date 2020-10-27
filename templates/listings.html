@@ -4,7 +4,7 @@
 {% for listing in list %}
 <p>Price: {{listing[0]}} | Seller: {{listing[1]}} | Description: {{listing[2]}} 
     <form action="/buy/{{listing[3]}}" method="post">
-        <input type="submit" value="buy">
+        <input type="submit" value="order">
     </form>
 </p>
 {% endfor %}
