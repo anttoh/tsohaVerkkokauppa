@@ -68,7 +68,7 @@ def pending_orders():
              FROM orders 
              INNER JOIN listings ON orders.listing_id=listings.listing_id 
              INNER JOIN users ON orders.buyer_id=users.user_id 
-             NNER JOIN items ON listings.item_id=items.item_id 
+             INNER JOIN items ON listings.item_id=items.item_id 
              INNER JOIN makers ON items.maker_id=makers.maker_id 
              WHERE listings.seller_id=:user_id 
              AND orders.sent=0"""
