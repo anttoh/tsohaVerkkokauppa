@@ -10,15 +10,15 @@ Logged in as {{session.username}} <a href="/logout">Logout</a>
 <hr>
 {% if session.role == "buyer" %}
 <script>
-    document.getElementById("back").setAttribute('href', "/buyer");
-    document.getElementById("switch").setAttribute('href', "/seller");
-    document.getElementById("role").textContent = 'Current role: Buyer';
+    document.getElementById("back").setAttribute("href", "/buyer");
+    document.getElementById("switch").setAttribute("href", "/seller");
+    document.getElementById("role").textContent = "Current role: Buyer";
 </script>
 {% endif %}
 {% if session.role == "seller" %}
 <script>
-    document.getElementById("back").setAttribute('href', "/seller");
-    document.getElementById("switch").setAttribute('href', "/buyer");
-    document.getElementById("role").textContent = 'Current role: Seller';
+    document.getElementById("back").setAttribute("href", "/seller");
+    document.getElementById("switch").setAttribute("href", "/buyer");
+    document.getElementById("role").textContent = "Current role: Seller";
 </script>
 {% endif %}

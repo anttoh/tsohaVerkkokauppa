@@ -5,7 +5,9 @@ import tags
 
 
 def get_list(searchwords):
-    sql = "SELECT items.name, makers.name, items.item_id FROM items INNER JOIN makers ON items.maker_id=makers.maker_id"
+    sql = """SELECT items.name, makers.name, items.item_id 
+             FROM items 
+             INNER JOIN makers ON items.maker_id=makers.maker_id"""
     result = db.session.execute(sql)
     items = result.fetchall()
     filtered_items = []
@@ -34,19 +36,26 @@ def get_list(searchwords):
 
 
 def get(item_id):
-    sql = "SELECT items.name, makers.name, items.item_id FROM items INNER JOIN makers ON items.maker_id=makers.maker_id WHERE items.item_id=:item_id"
+    sql = """SELECT items.name, makers.name, items.item_id 
+             FROM items
+             INNER JOIN makers ON items.maker_id=makers.maker_id
+             WHERE items.item_id=:item_id"""
     result = db.session.execute(sql, {"item_id": item_id})
     return result.fetchone()
 
 
 def get_id(item_name, maker_id):
-    sql = "SELECT item_id FROM items WHERE name=:name AND maker_id=:maker_id"
+    sql = """SELECT item_id 
+             FROM items 
+             WHERE name=:name 
+             AND maker_id=:maker_id"""
     result = db.session.execute(sql, {"name": item_name, "maker_id": maker_id})
     return result.fetchone()
 
 
 def add(item_name, maker_id):
-    sql = "INSERT INTO items (name,maker_id) VALUES (:name,:maker_id)"
+    sql = """INSERT INTO items (name, maker_id) 
+             VALUES (:name, :maker_id)"""
     db.session.execute(sql, {"name": item_name, "maker_id": maker_id})
     db.session.commit()
 
