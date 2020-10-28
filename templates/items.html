@@ -6,6 +6,9 @@
     <input type="submit" value="query">
 </form>
 <a href="/items">reset</a>
+{% if list == [] %}
+<p>No listings found.</p>
+{% endif %}
 {% for item in list %}
 <p>Item: {{item[0]}} | Maker: <a href="/maker/{{item[1]}}">{{item[1]}}</a> | <a href="/listings/{{item[2]}}">view listings</a></p>
 {% endfor %}
